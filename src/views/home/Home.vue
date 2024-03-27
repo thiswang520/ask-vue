@@ -12,7 +12,7 @@
     },
     methods: {
         but () {
-            post('/login',{name:'123'})
+            post('/login/login',{name:'123'})
         }
     }
   }
