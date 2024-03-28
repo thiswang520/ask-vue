@@ -1,15 +1,13 @@
 <template>
   <div class="login-container">
-    <div class="login-box">
+    <div class="login-box" :class="{ 'hover-effect': hoverEffect }">
       <h2 class="login-title">Login</h2>
       <form @submit.prevent="login">
         <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" v-model="username" required>
+          <input type="text" id="username" placeholder="email" required >
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" v-model="password" required>
+          <input type="password" id="password" placeholder="password" required>
         </div>
         <button type="submit" class="btn" @click="login">Login</button>
         <button type="submit" class="btn" @click="register">Register</button>
@@ -26,7 +24,8 @@ export default {
   data() {
     return {
       username: '王阳',
-      password: ''
+      password: '',
+      hoverEffect: false
     };
   },
   methods: {
@@ -55,32 +54,36 @@ export default {
 }
 
 .login-box {
-  width: 300px;
-  padding: 20px;
+  width: 3rem;
+  padding: .2rem;
   background-color: rgba(0,0,0,0.4);
+  border-radius: .5rem;
+  box-shadow: 0 0 .1rem rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  transition: transform 1s ease; /* 添加过渡效果 */
 }
+
 
 .login-title {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: .2rem;
+  color: #fff;
 }
 
 .form-group {
-  margin-bottom: 20px;
-
+  margin-bottom: .2rem;
+  color: #fff;
+  font-size: .15rem;
   label {
     display: block;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: .1rem;
   }
 
   input[type="text"],
   input[type="password"] {
     width: 100%;
-    padding: 10px;
+    padding: .1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
@@ -93,10 +96,9 @@ export default {
   background-color: #3498db;
   color: #fff;
   text-decoration: none;
-  margin: 10px auto;
-  padding: 10px;
+  margin: .1rem auto;
+  padding: .1rem;
   border: none;
-  border-radius: 5px;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -109,7 +111,8 @@ export default {
 .forgot-password,
 .sign-up {
   text-align: center;
-  margin-top: 20px;
+  margin-top: .4rem;
+  color: #fff;
 }
 
 .forgot-password a,

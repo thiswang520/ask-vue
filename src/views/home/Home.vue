@@ -4,12 +4,10 @@
      <div class="top-navbar">
         <nav class="nav-menu">
           <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="#" @click="home">Home</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
-            <li><a href="#">{{ this.$store.state.user.username|| Login }}</a></li>
-            <li><a href="#">register</a></li>
           </ul>
         </nav>
       </div>
@@ -22,6 +20,7 @@
       <!-- 右边  -->
       <!-- 底部  -->
   </div>
+  <div class="slide-down-div">1</div>
 </template>
   
 <script>
@@ -40,6 +39,9 @@ export default {
     but() {
       post("/login", { name: "123" });
     },
+    home() {
+      document.querySelector('.slide-down-div').classList.toggle('active');
+    }
   },
 };
 </script>
@@ -63,6 +65,23 @@ export default {
 
   }
 }
+.slide-down-div {
+  position: fixed;
+  bottom: -37rem; /* 初始位置在底部 */
+  left: 50%; /* 初始位置水平居中 */
+  transform: translateX(-50%); /* 通过 transform 属性水平居中 */
+  background-color: rebeccapurple;
+  color: #fff;
+  padding: .5rem 1rem;
+  height: 80%;
+  width: 3.5rem;
+  background-color: rgba(0,0,0,0.2);
+  border-radius: .4rem;
+  transition: bottom 0.5s ease; /* 添加过渡效果 */
+}
+.slide-down-div.active {
+  bottom: 2%; /* 点击后垂直居中 */
+}
 .top-navbar {
   position: fixed; /* 固定定位 */
   top: 0; /* 距离顶部的距离为 0 */
@@ -73,7 +92,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 30px;
+  padding: .2rem .2rem;
   .nav-menu ul {
     list-style: none;
     padding: 0;
@@ -81,7 +100,7 @@ export default {
   }
   .nav-menu ul li {
     display: inline;
-    margin-right: 60px;
+    margin-right: .6rem;
     
   }
   .nav-menu ul li:last-child {
@@ -96,7 +115,7 @@ export default {
   }
   .nav-menu ul li a:hover {
     text-decoration: underline;
-    transform: scale(1.6); /* 悬停时放大 20% */
+    box-shadow: 0 0 20px #333;
   }
 }
 </style>
