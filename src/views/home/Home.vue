@@ -21,13 +21,17 @@
       <!-- 底部  -->
   </div>
   <div class="slide-down-div">1</div>
+  <FisterRgister class="fister-regsiter"/>
+  <Login class="login"/>
 </template>
   
 <script>
+import FisterRgister from '../register/FirstRegister.vue'
+import Login from '../login/Login.vue'
 import { post } from "../../utils/request";
 export default {
   name: "Home",
-  components: {},
+  components: {FisterRgister,Login},
   data () {
     return {
       user: {
@@ -43,6 +47,13 @@ export default {
       document.querySelector('.slide-down-div').classList.toggle('active');
     }
   },
+  mounted() {
+    setTimeout(() => {
+      if(!localStorage.isLogin){
+      document.querySelector('.fister-regsiter').classList.toggle('active');
+      }
+    },100)
+  }
 };
 </script>
   
@@ -65,7 +76,9 @@ export default {
 
   }
 }
-.slide-down-div {
+.slide-down-div,
+.fister-regsiter,
+.login {
   position: fixed;
   bottom: -37rem; /* 初始位置在底部 */
   left: 50%; /* 初始位置水平居中 */
@@ -79,9 +92,12 @@ export default {
   border-radius: .4rem;
   transition: bottom 0.5s ease; /* 添加过渡效果 */
 }
-.slide-down-div.active {
+.slide-down-div.active ,
+.fister-regsiter.active,
+.login.active{
   bottom: 2%; /* 点击后垂直居中 */
 }
+
 .top-navbar {
   position: fixed; /* 固定定位 */
   top: 0; /* 距离顶部的距离为 0 */
