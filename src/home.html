@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vue Responsive Blog Layout</title>
+<style>
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* Header styles */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Navigation styles */
+nav {
+    background-color: #555;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+/* Article styles */
+article {
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    article {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1200px) {
+    article {
+        width: 33.33%;
+    }
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+    <header>
+        <h1>{{ blogName }}</h1>
+    </header>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <div class="container">
+        <article v-for="(article, index) in articles" :key="index">
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.content }}</p>
+        </article>
+    </div>
+
+    <footer>
+        <p>&copy; {{ currentYear }} {{ blogName }}. All rights reserved.</p>
+    </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script>
+new Vue({
+    el: '#app',
+    data: {
+        blogName: 'My Vue Responsive Blog',
+        currentYear: new Date().getFullYear(),
+        articles: [
+            { title: 'Article 1', content: 'This is the content of article 1.' },
+            { title: 'Article 2', content: 'This is the content of article 2.' },
+            { title: 'Article 3', content: 'This is the content of article 3.' },
+            { title: 'Article 4', content: 'This is the content of article 4.' },
+            { title: 'Article 5', content: 'This is the content of article 5.' },
+            { title: 'Article 6', content: 'This is the content of article 6.' }
+        ]
+    }
+});
+</script>
+</body>
+</html>

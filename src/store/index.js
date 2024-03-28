@@ -13,12 +13,18 @@ export default createStore({
         old: '',
         count: 0
       }
+    },
+    user: {
+      username: ''
     }
   },
   mutations: {
     addShop (state, item) {
       state.cartList = item
       console.log(222, this.state.cartList)
+    },
+    user(state, username) {
+      state.user.username = username
     }
   },
   actions: {
