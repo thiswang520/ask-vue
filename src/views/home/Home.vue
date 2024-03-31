@@ -2,7 +2,7 @@
    <div class="full-screen">
      <!-- top 顶部导航 -->
      <div class="top-navbar">
-        <nav class="nav-menu">
+        <nav class="nav-menu" ref="wrapper">
           <ul>
             <li><a href="#" @click="home">Home</a></li>
             <li><a href="#">Blog</a></li>
@@ -13,24 +13,25 @@
       </div>
     <div class="content">
       <!-- Your content here -->
-      <h1 class="content__font">Welcome to My Website</h1>
+      <h1 class="content__font">Welcome to {{ username }}</h1>
     </div>
     
       <!-- 左边  -->
       <!-- 右边  -->
       <!-- 底部  -->
   </div>
-  <div class="slide-down-div">1</div>
-  <FisterRgister class="fister-regsiter"/>
-  <Login class="login"/>
+  <div class="slide-down-div">展示博客主页</div>
+  <FisterRgister class="fister-regsiter" @send-login="handData"/>
+  <Login class="login" ref="islogin" @send-login-to="handDatato" @send-login="handData"/>
 </template>
   
 <script>
-import FisterRgister from '../register/FirstRegister.vue'
+import FisterRgister from '../register/Register.vue'
 import Login from '../login/Login.vue'
 import { post } from "../../utils/request";
 export default {
   name: "Home",
+  props: ['isLogin'],
   components: {FisterRgister,Login},
   data () {
     return {
@@ -45,6 +46,31 @@ export default {
     },
     home() {
       document.querySelector('.slide-down-div').classList.toggle('active');
+    },
+    handData (islogin) {
+      if(islogin) {
+        //关闭注册，登录滑出
+        document.querySelector('.fister-regsiter').classList.remove('active');
+        setTimeout(() => {
+          document.querySelector('.login-container').classList.toggle('active');
+        }, 100);
+      }else {
+          //关闭登录，注册滑出
+          document.querySelector('.fister-regsiter').classList.add('active');
+        setTimeout(() => {
+          document.querySelector('.login-container').classList.remove('active');
+        }, 100);
+      }
+    },
+    handDatato(isLoginStatus){
+      if(isLoginStatus) {
+        //关闭登录
+        document.querySelector('.login-container').classList.remove('active');
+        document.querySelector('.slide-down-div').classList.toggle('active');
+        //添加用户欢迎背景
+        alert(this.$store.state.user.username)
+        console.log(this.$store.state.user);
+      }
     }
   },
   mounted() {
@@ -53,7 +79,7 @@ export default {
       document.querySelector('.fister-regsiter').classList.toggle('active');
       }
     },100)
-  }
+  },
 };
 </script>
   
@@ -72,13 +98,11 @@ export default {
 .content {
   text-align: center;
   color: #fff; /* 文本颜色 */
-  &__h1{
-
-  }
 }
 .slide-down-div,
 .fister-regsiter,
 .login {
+  opacity: 0.5; // 设置朦层透明度
   position: fixed;
   bottom: -37rem; /* 初始位置在底部 */
   left: 50%; /* 初始位置水平居中 */
@@ -109,6 +133,8 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: .2rem .2rem;
+  transition: transform 0.3s ease; /* 添加过渡效果 */
+
   .nav-menu ul {
     list-style: none;
     padding: 0;

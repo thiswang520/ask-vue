@@ -1,5 +1,5 @@
 <template>
-  <div class="register-container">
+  <div class="login-container">
     <form>
       <h1>登录</h1>
       <div class="input-group">
@@ -11,7 +11,8 @@
       <div class="input-group">
         <input type="password" id="password" v-model="password" placeholder="Enter your password">
       </div>
-      <button class="btn" type="submit">Register</button>
+      <button class="btn" type="submit" @click="login">Login</button>
+      <button class="btn" type="submit" @click="register">Go Register</button>
     </form>
   </div>
 </template>
@@ -21,14 +22,27 @@ export default {
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      isLoginStatus: false
     };
+  },
+  methods: {
+    login () {
+      localStorage.isLogin = true
+      this.isLoginStatus = true
+      this.$emit('send-login-to', this.isLoginStatus)
+      // vuex保存 用户信息
+      this.$store.commit('addUser',this.username)
+    },
+    register () {
+      this.$emit('send-login',false)
+    }
   }
-};
+}
 </script>
 
 <style lang="scss">
-.register-container {
+.login-container {
   width: 30rem;
   margin: -1rem auto;
   border-radius: 5px;
