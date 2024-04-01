@@ -36,17 +36,16 @@ export default {
   data () {
     return {
       user: {
-        username: ""
+        username: ''
       }
     }
   },
   computed: {
     username() {
-    const {username} =  this.$store.state.user.username
-    localStorage.username = username
-    return username
+      const  username = localStorage.username
+      console.log(username);
+      return username
     }
-   
   },
   methods: {
     but() {

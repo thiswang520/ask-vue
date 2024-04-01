@@ -36,7 +36,7 @@
         class="btn"
         type="submit"
         @click="register"
-        :disabled="!isUsernameValid || !isPasswordValid"
+        :disabled="!isUsernameValid || !isPasswordValid || !isEmalValid" 
       >
         Register
       </button>
@@ -81,7 +81,7 @@ export default {
     },
     // 注册
     register() {
-      if (this.isUsernameValid && this.isPasswordValid) {
+      if (this.isUsernameValid && this.isPasswordValid && this.isEmalValid) {
         post("/user/register", {
           eamil: this.eamil,
           username: this.username,

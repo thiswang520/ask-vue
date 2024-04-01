@@ -15,7 +15,8 @@ export default createStore({
       },
     },
     user: {
-      username: ''
+      username: '',
+      email:''
     }
 
     
@@ -25,8 +26,9 @@ export default createStore({
       state.cartList = item
       console.log(222, this.state.cartList)
     },
-    addUser(state, username) {
-      state.user.username = username
+    addUser(state, user) {
+      state.user.username = user.username
+      state.user.email = user.email
     }
   },
   actions: {
