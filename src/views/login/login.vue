@@ -8,9 +8,6 @@
       <div class="input-group">
         <input type="password" id="password" v-model="password" placeholder="Enter your password">
       </div>
-      <div class="input-group">
-        <input type="password" id="password" v-model="password" placeholder="Enter your password">
-      </div>
       <button class="btn" type="submit" @click="login">Login</button>
       <button class="btn" type="submit" @click="register">Go Register</button>
     </form>
@@ -23,7 +20,10 @@ export default {
     return {
       username: '',
       password: '',
-      isLoginStatus: false
+      isLoginStatus: false,
+      user: {
+        username: ''
+      }
     };
   },
   methods: {
@@ -31,8 +31,9 @@ export default {
       localStorage.isLogin = true
       this.isLoginStatus = true
       this.$emit('send-login-to', this.isLoginStatus)
+      this.user.username = this.username
       // vuex保存 用户信息
-      this.$store.commit('addUser',this.username)
+      this.$store.commit('addUser',this.user)
     },
     register () {
       this.$emit('send-login',false)

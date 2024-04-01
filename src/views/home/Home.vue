@@ -7,13 +7,13 @@
             <li><a href="#" @click="home">Home</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#" @click="login">Login</a></li>
           </ul>
         </nav>
       </div>
     <div class="content">
       <!-- Your content here -->
-      <h1 class="content__font">Welcome to {{ username }}</h1>
+      <h1 class="content__font">Welcome to {{ username || "" }}</h1>
     </div>
     
       <!-- 左边  -->
@@ -36,15 +36,25 @@ export default {
   data () {
     return {
       user: {
-        username: this.$store.state.user.username || ""
+        username: ""
       }
     }
+  },
+  computed: {
+    username() {
+    const {username} =  this.$store.state.user.username
+    localStorage.username = username
+    return username
+    }
+   
   },
   methods: {
     but() {
       post("/login", { name: "123" });
     },
     home() {
+      document.querySelector('.fister-regsiter').classList.remove('active');
+      document.querySelector('.login-container').classList.remove('active');
       document.querySelector('.slide-down-div').classList.toggle('active');
     },
     handData (islogin) {
@@ -67,9 +77,7 @@ export default {
         //关闭登录
         document.querySelector('.login-container').classList.remove('active');
         document.querySelector('.slide-down-div').classList.toggle('active');
-        //添加用户欢迎背景
-        alert(this.$store.state.user.username)
-        console.log(this.$store.state.user);
+     
       }
     }
   },
